@@ -10,9 +10,13 @@ const getForecast = (lat, lon, callback) => {
     } else {
       const { weather, main } = response.body.list[0]
       const description = weather[0].description[0].toUpperCase() + weather[0].description.slice(1)
+      const icon = `http://openweathermap.org/img/w/${weather[0].icon}.png`
       const { temp, temp_max:max, temp_min:min } = main
 
-      callback(undefined, `${description}. It is currently ${temp} degrees with a high of ${max} and a low of ${min}.`)
+      callback(undefined, {
+        forecast: `${description}. It is currently ${temp} degrees with a high of ${max} and a low of ${min}.`,
+        icon
+      })
     }
   })
 }
